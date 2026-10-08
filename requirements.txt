@@ -1,0 +1,5 @@
+httpx
+pyyaml
+pandas
+python-dotenv
+pillow

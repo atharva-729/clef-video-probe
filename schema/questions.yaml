@@ -1,0 +1,90 @@
+version: 1
+state: >
+  This image is a single frame from a live TV broadcast of a rocket launch
+  (Ariane 5 carrying the James Webb Space Telescope). On-screen text may be in
+  French and numbers may use a comma as the decimal separator (e.g. "2,92").
+  The main area may show live camera footage, a computer animation of the
+  rocket, a control room, a studio presenter, or a map. Smaller insets may
+  appear along the bottom. Answer only from what is visible in this frame.
+
+questions:
+
+  # ── A. Layout: what is on screen ─────────────────────────────────────────
+  - id: main_view
+    question: What does the main (largest) area of the screen show?
+    options: [live_camera_rocket, animation_rocket, control_room, studio_presenter, map_or_chart, title_or_graphic_card, other]
+
+  - id: telemetry_panel_visible
+    question: Is a panel showing numeric flight data (e.g. altitude, speed, distance) visible?
+    options: [yes, no]
+
+  - id: trajectory_chart_visible
+    question: Is a chart plotting the rocket's trajectory (altitude vs distance) visible?
+    options: [yes, no]
+
+  - id: ground_track_map_visible
+    question: Is a world map showing the rocket's ground track or tracking stations visible?
+    options: [yes, no]
+
+  - id: control_room_inset_visible
+    question: Is a smaller inset showing people in a control room visible?
+    options: [yes, no]
+
+  - id: people_visible
+    question: Are any real people visible anywhere on screen?
+    options: [yes, no]
+
+  - id: onscreen_text_language
+    question: What language is most of the on-screen text in?
+    options: [french, english, mixed, no_text]
+
+  # ── B. Reading numbers (bucketed, see "Logic") ────────────────────────────
+  - id: clock_state
+    question: Is a mission clock shown, and is it counting down or up?
+    options: [t_minus, t_plus, hold, not_visible]
+
+  - id: altitude_km
+    question: What altitude is displayed on screen, in kilometres?
+    options: [none, "0-10", "10-50", "50-100", "100-200", "200-500", "500-1000", "1000+"]
+
+  - id: speed_kms
+    question: What speed/velocity ("vitesse") is displayed on screen, in km/s?
+    options: [none, "0-1", "1-2", "2-4", "4-7", "7-9", "9+"]
+
+  - id: distance_km
+    question: What distance is displayed on screen, in kilometres?
+    options: [none, "0-100", "100-500", "500-1000", "1000-3000", "3000+"]
+
+  # ── C. Vehicle state ─────────────────────────────────────────────────────
+  - id: vehicle_location
+    question: Where is the rocket in this frame?
+    options: [on_pad, in_flight, not_visible]
+
+  - id: side_boosters_attached
+    question: Are the rocket's two side boosters still attached?
+    options: [attached, separated, cant_tell]
+
+  - id: fairing_attached
+    question: Is the nose fairing still covering the payload?
+    options: [attached, jettisoned, cant_tell]
+
+  - id: engine_firing
+    question: Is an engine plume or flame visible?
+    options: [yes, no, cant_tell]
+
+  - id: payload_separated
+    question: Has the telescope separated from the rocket and is it flying free?
+    options: [yes, no, cant_tell]
+
+  - id: flight_phase
+    question: Which phase of the flight does this frame show?
+    options: [pre_launch, liftoff, ascent_with_boosters, ascent_after_booster_sep, ascent_after_fairing_jettison, upper_stage_coast_or_burn, payload_separation, post_separation, cant_tell]
+
+  # ── D. Editorial: what a publisher would act on ──────────────────────────
+  - id: highlight_worthy
+    question: Is this frame part of a key moment worth clipping as a highlight (liftoff, a separation, a reaction shot)?
+    options: [yes, no]
+
+  - id: ad_break_safe
+    question: Would cutting away to an ad here miss nothing important (e.g. talking heads, routine cruise)?
+    options: [yes, no]

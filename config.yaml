@@ -1,0 +1,24 @@
+# Clip: first 5:30 of the maintainer's 10-minute cut of broadcast Part 2.
+clip:
+  path: data/clip/clip.mp4
+  duration_s: 330
+  liftoff_s: 61          # liftoff is 1:01 into the clip (maintainer)
+
+sample_interval_s: 5
+
+model:
+  id: cloudflare/clef
+  provider: cloudflare   # pinned, no fallback (OpenRouter also lists a second provider)
+  price_per_m_input_usd: 0.24
+
+# Workers AI estimates tokens as base64 length / 4 before reading the image and
+# rejects with 413 past 65,536, so frames are re-encoded to JPEG under this size.
+image:
+  max_bytes: 150000
+
+events:
+  min_conf: 0.6
+  persist_frames: 2
+  hit_tolerance_intervals: 2
+
+schema_path: schema/questions.yaml
