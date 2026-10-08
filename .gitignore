@@ -1,0 +1,7 @@
+data/raw/
+data/clip/
+data/frames/
+runs/
+.env
+__pycache__/
+*.pyc
