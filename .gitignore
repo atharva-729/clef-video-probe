@@ -1,6 +1,4 @@
 data/raw/
-data/clip/
-data/frames/
 runs/
 .env
 __pycache__/
