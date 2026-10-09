@@ -79,7 +79,7 @@ video ──ffmpeg──▶ frames (every 5 s) ──▶ Clef (frame + questions
 clef-video-probe/
 ├── README.md                ← this file
 ├── .env.example             ← OPENROUTER_API_KEY=, BUDGET_USD=2.00
-├── .gitignore               ← data/raw, data/clip, data/frames, runs/, .env, __pycache__
+├── .gitignore               ← data/raw, runs/, .env, __pycache__
 ├── requirements.txt
 ├── config.yaml              ← clip window, sample interval, model id, thresholds
 ├── schema/
@@ -89,8 +89,8 @@ clef-video-probe/
 │   └── SOURCE.md            ← exact source file, timestamps, attribution
 ├── data/
 │   ├── raw/                 ← original download (git-ignored)
-│   ├── clip/clip.mp4        ← 5:30 trimmed clip (git-ignored)
-│   ├── frames/              ← sampled JPGs (git-ignored)
+│   ├── clip/clip.mp4        ← 5:30 trimmed clip (committed)
+│   ├── frames/              ← sampled JPGs (committed)
 │   └── labels/labels.csv    ← hand labels (committed)
 ├── src/
 │   ├── clef_client.py       ← one function: ask(frame, state, schema) → answers
@@ -426,7 +426,7 @@ Only if the maintainer asks. Each item has its own checkpoint.
 1. **Phases in order; stop at every checkpoint** and wait for "go". Don't start the next phase early, even partly.
 2. **Never guess the Clef API.** Confirm everything from the docs in Phase 0 and write it down in `docs/api_notes.md`. If something is unclear, ask.
 3. **Spend tokens only through `run_clef.py`**, always cache-first, always after a dry run, and never above `BUDGET_USD`. Phase 0's single call is the only exception.
-4. **Never commit** video, frames, `runs/`, or `.env`. Labels, reports, the schema and code are committed.
+4. **Never commit** `runs/`, `data/raw/` or `.env`. The 5:30 clip, its frames, labels, reports, the schema and code are committed (maintainer decision, 2026-10-09).
 5. **Don't change the schema silently.** Propose changes at a checkpoint, bump `version`, and note why in the commit message.
 6. **Don't edit labels.** If a label looks wrong, list it in the checkpoint report for the maintainer to decide.
 7. **Report honestly.** Always show the majority baseline next to accuracy, and include failures and the worst frames. A demo that only shows successes is not useful.
@@ -454,4 +454,4 @@ Clef's strengths for this: answers are typed and structured (no parsing free tex
 - **Video:** *Complete Webb Telescope Launch Broadcast*, NASA Goddard Space Flight Center Scientific Visualization Studio (https://svs.gsfc.nasa.gov/14060). NASA-produced media is generally not subject to copyright in the US. Follow NASA's media usage guidelines and **do not use NASA (or ESA/CNES) logos in a way that implies endorsement.**
 - **Note:** this broadcast was a joint NASA/ESA production and includes on-screen graphics from partners (e.g. the CNES telemetry panel). It's fine for internal R&D. **Before showing it to an external client, confirm the usage terms** for partner material, or switch to footage the company owns.
 - **Model:** Cloudflare Clef / Clef-Flash (Apache-2.0 weights), accessed via OpenRouter or Workers AI.
-- **Video files are not redistributed in this repo.** See `docs/SOURCE.md` for how to obtain them.
+- **The 5:30 clip and its frames are committed to this repo at the maintainer's request (2026-10-09)**, including partner graphics. The full broadcast is not. Provenance is in `docs/SOURCE.md`; the usage-terms caveat above still applies to any external showing.

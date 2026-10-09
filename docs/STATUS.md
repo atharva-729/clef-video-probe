@@ -2,12 +2,14 @@
 
 Last updated 2026-10-09. The README is the work plan; this file records where it stands.
 
-**Phases 0 and 1 are done. Next is Phase 2 (frames and labelling kit).**
+**Phase 3 (Clef run) is pending: it failed on the work laptop because Netskope blocks openrouter.ai. Run `python src/run_clef.py --run-id run_001` on an unfiltered machine, then `python src/evaluate.py`.**
+
+**Phases 0, 1 and 2 are done (labels reviewed by the maintainer). Phase 3 is next, then Phase 4: `src/evaluate.py` is written and tested on synthetic data only.**
 
 ## Setting up a new machine
 
 1. Clone the repo.
-2. Copy `data/clip/clip.mp4` from the first machine into `data/clip/`. It is git-ignored, so the clone does not include it. Check it against the SHA-256 in [SOURCE.md](SOURCE.md). The raw 10-minute cut in `data/raw/` is not needed for Phase 2 onwards.
+2. `data/clip/clip.mp4` and `data/frames/` are committed, so the clone has them. Check the clip against the SHA-256 in [SOURCE.md](SOURCE.md). The raw 10-minute cut in `data/raw/` is not needed.
 3. Create `.env` from `.env.example` and fill in `OPENROUTER_API_KEY`.
 4. Install Python 3.11 and `pip install -r requirements.txt`, and put `ffmpeg` on PATH.
 

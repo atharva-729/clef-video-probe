@@ -9,7 +9,7 @@
 
 ## What is in this project
 
-The video files are git-ignored. They have to be copied by hand to any new machine.
+The 5:30 clip is committed to the repo. The 10-minute raw cut is git-ignored and not needed.
 
 | File | What it is |
 |---|---|
