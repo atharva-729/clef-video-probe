@@ -1,11 +1,14 @@
-version: 1
+version: 2
 state: >
   This image is a single frame from a live TV broadcast of a rocket launch
   (Ariane 5 carrying the James Webb Space Telescope). On-screen text may be in
   French and numbers may use a comma as the decimal separator (e.g. "2,92").
   The main area may show live camera footage, a computer animation of the
   rocket, a control room, a studio presenter, or a map. Smaller insets may
-  appear along the bottom. Answer only from what is visible in this frame.
+  appear along the bottom. The telescope stays attached to the rocket's upper
+  stage after the nose fairing is jettisoned; it separates much later, so
+  seeing the telescope after fairing jettison does not mean it has separated.
+  Answer only from what is visible in this frame.
 
 questions:
 

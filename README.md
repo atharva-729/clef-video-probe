@@ -2,7 +2,7 @@
 
 **Can a vision decision model watch a broadcast and tell us, frame by frame, what is happening, accurately enough to drive something a viewer sees live?**
 
-This repo answers that for one 5-minute clip of the **James Webb Space Telescope launch broadcast (NASA/ESA, 25 Dec 2021)**, using **Cloudflare's Clef** decision model. We:
+This repo answers that for one 5½-minute clip of the **James Webb Space Telescope launch broadcast (NASA/ESA, 25 Dec 2021)**, using **Cloudflare's Clef** decision model. We:
 
 1. sample frames from the clip,
 2. ask Clef a fixed set of multiple-choice questions about each frame,
@@ -55,7 +55,7 @@ A launch broadcast is a good first test because one frame contains a lot of chec
 
 The broadcast comes in three parts; liftoff is expected in **Part 2**. The video file is **downloaded manually by the maintainer** and placed at `data/raw/`. It is never committed.
 
-**Clip window:** 5 minutes starting ~30 s before liftoff. On an Ariane 5 flight this window should include liftoff, side-booster separation (≈ T+2:20) and fairing jettison (≈ T+3:10). These times are approximate; take the true times from the video itself.
+**Clip window:** 5:30 (330 s), starting 61 s before T0 (the mission clock reaching zero, at 61 s into the clip). It includes ignition, liftoff, side-booster separation (≈ T+2:20) and fairing jettison (≈ T+3:10). Take true event times from the video itself.
 
 ---
 
@@ -79,7 +79,7 @@ video ──ffmpeg──▶ frames (every 5 s) ──▶ Clef (frame + questions
 clef-video-probe/
 ├── README.md                ← this file
 ├── .env.example             ← OPENROUTER_API_KEY=, BUDGET_USD=2.00
-├── .gitignore               ← data/raw, data/clip, data/frames, runs/, .env
+├── .gitignore               ← data/raw, data/clip, data/frames, runs/, .env, __pycache__
 ├── requirements.txt
 ├── config.yaml              ← clip window, sample interval, model id, thresholds
 ├── schema/
@@ -89,7 +89,7 @@ clef-video-probe/
 │   └── SOURCE.md            ← exact source file, timestamps, attribution
 ├── data/
 │   ├── raw/                 ← original download (git-ignored)
-│   ├── clip/clip.mp4        ← 5-min trimmed clip (git-ignored)
+│   ├── clip/clip.mp4        ← 5:30 trimmed clip (git-ignored)
 │   ├── frames/              ← sampled JPGs (git-ignored)
 │   └── labels/labels.csv    ← hand labels (committed)
 ├── src/
@@ -114,14 +114,17 @@ Python 3.11, `ffmpeg` on PATH. Keep dependencies minimal: `httpx`, `pyyaml`, `pa
 All questions are **single-choice**. Every question includes an escape option (`none`, `cant_tell`, or `not_visible`) so Clef is never forced to guess. Store this verbatim in `schema/questions.yaml`; bump `version` on any change.
 
 ```yaml
-version: 1
+version: 2
 state: >
   This image is a single frame from a live TV broadcast of a rocket launch
   (Ariane 5 carrying the James Webb Space Telescope). On-screen text may be in
   French and numbers may use a comma as the decimal separator (e.g. "2,92").
   The main area may show live camera footage, a computer animation of the
   rocket, a control room, a studio presenter, or a map. Smaller insets may
-  appear along the bottom. Answer only from what is visible in this frame.
+  appear along the bottom. The telescope stays attached to the rocket's upper
+  stage after the nose fairing is jettisoned; it separates much later, so
+  seeing the telescope after fairing jettison does not mean it has separated.
+  Answer only from what is visible in this frame.
 
 questions:
 
@@ -247,7 +250,8 @@ Single frames are noisy, so answers are **smoothed** before looking for changes:
 
 | Event | Fires when |
 |---|---|
-| `liftoff` | `clock_state` t_minus → t_plus, **or** `vehicle_location` on_pad → in_flight (whichever comes first) |
+| `ignition` | `clock_state` t_minus → t_plus (mission clock reaches zero, main engine lights; T0 = 61 s in the clip) |
+| `liftoff` | `vehicle_location` on_pad → in_flight (the rocket leaves the pad, a few seconds after ignition) |
 | `booster_separation` | `side_boosters_attached` attached → separated |
 | `fairing_jettison` | `fairing_attached` attached → jettisoned |
 | `payload_separation` | `payload_separated` no → yes |
@@ -288,12 +292,12 @@ Each phase lists **Goal → Tasks → Outputs → Checkpoint**. At the checkpoin
 
 ### Phase 1: Prepare the clip
 
-**Goal:** a 5-minute clip with known timestamps and documented provenance.
+**Goal:** a 5:30 clip with known timestamps and documented provenance.
 
 **Tasks**
 1. The maintainer puts the downloaded broadcast part in `data/raw/`.
 2. Use `ffprobe` to report duration and resolution. To help find liftoff, extract a frame every 30 s across the whole file into a **contact sheet** (`docs/overview_contact_sheet.jpg`), with each tile labelled by timestamp.
-3. Once the maintainer confirms the liftoff timestamp, trim `[liftoff − 30 s, liftoff + 270 s]` to `data/clip/clip.mp4` (re-encode to H.264 so it plays in a browser).
+3. Once the maintainer confirms the timestamps, trim the 5:30 window to `data/clip/clip.mp4` (re-encode to H.264 so it plays in a browser).
 4. Write `docs/SOURCE.md`: source URL, exact filename, the clip's start and end in the original, and attribution text.
 
 **Outputs:** `data/clip/clip.mp4`, `docs/SOURCE.md`, `docs/overview_contact_sheet.jpg`
@@ -309,7 +313,7 @@ Each phase lists **Goal → Tasks → Outputs → Checkpoint**. At the checkpoin
 **Goal:** frames to send to Clef, plus everything the maintainer needs to label them quickly.
 
 **Tasks**
-1. Sample one frame every 5 s (`config.sample_interval_s`) → `data/frames/f_0000_t000.0.jpg` … (≈ 60 frames). Name each file by index and timestamp.
+1. Sample one frame every 5 s (`config.sample_interval_s`) → `data/frames/f_0000_t000.0.jpg` … (66 frames for the 330 s clip). Name each file by index and timestamp.
 2. Write `data/labels/labels.csv`, one row per frame: `frame, t_seconds` plus one column per question. For numeric questions, use raw-number columns (`altitude_raw, speed_raw, distance_raw`). Pre-fill nothing.
 3. Write `data/labels/LABELLING.md`: the allowed values for each column, the rules (`?` = unsure; write raw numbers as shown; `none` if not on screen), and how each question should be interpreted.
 4. Write `data/labels/events_truth.csv` with headers only.
