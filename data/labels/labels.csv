@@ -1,31 +1,31 @@
 frame,t_seconds,main_view,telemetry_panel_visible,trajectory_chart_visible,ground_track_map_visible,control_room_inset_visible,people_visible,onscreen_text_language,clock_state,altitude_raw,speed_raw,distance_raw,vehicle_location,side_boosters_attached,fairing_attached,engine_firing,payload_separated,flight_phase,highlight_worthy,ad_break_safe,notes
-f_0000_t000.0.jpg,0,control_room,no,no,false,false,yes,no_text,t_minus,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,pre_launch,no,yes,"DIR OPERATIONS close-up, rocket not shown"
+f_0000_t000.0.jpg,0,control_room,no,no,no,no,yes,no_text,t_minus,none,none,none,not_visible,cant_tell,cant_tell,no,cant_tell,pre_launch,no,yes,"DIR OPERATIONS close-up, rocket not shown"
 f_0001_t005.0.jpg,5,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,yes,far wide shot of pad
 f_0002_t010.0.jpg,10,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,yes,far wide shot of pad
 f_0003_t015.0.jpg,15,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,yes,far wide shot of pad
-f_0004_t020.0.jpg,20,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,no,
-f_0005_t025.0.jpg,25,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,no,
-f_0006_t030.0.jpg,30,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,no,
+f_0004_t020.0.jpg,20,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,yes,
+f_0005_t025.0.jpg,25,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,yes,
+f_0006_t030.0.jpg,30,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,yes,
 f_0007_t035.0.jpg,35,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,no,
 f_0008_t040.0.jpg,40,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,no,
 f_0009_t045.0.jpg,45,live_camera_rocket,no,no,no,no,no,no_text,t_minus,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,no,
-f_0010_t050.0.jpg,50,other,no,no,no,no,no,english,not_visible,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,pre_launch,no,no,"CAM #231 close-up of rocket hardware, no clock"
-f_0011_t055.0.jpg,55,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,no,"steam at pad, no clock"
+f_0010_t050.0.jpg,50,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,on_pad,attached,attached,no,no,pre_launch,no,no,"CAM #231 close-up of rocket hardware, no clock"
+f_0011_t055.0.jpg,55,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,not_visible,cant_tell,cant_tell,no,no,pre_launch,no,no,"steam at pad, no clock"
 f_0012_t060.0.jpg,60,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,on_pad,attached,attached,yes,no,liftoff,yes,no,"ignition flame, still on pad; no clock"
-f_0013_t065.0.jpg,65,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,in_flight,attached,attached,yes,no,liftoff,yes,no,
-f_0014_t070.0.jpg,70,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,in_flight,attached,attached,yes,no,ascent_with_boosters,no,no,"in cloud, booster sep not visible"
-f_0015_t075.0.jpg,75,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,in_flight,attached,attached,yes,no,ascent_with_boosters,no,no,"in cloud, booster sep not visible"
+f_0013_t065.0.jpg,65,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,on_pad,attached,attached,yes,no,liftoff,yes,no,
+f_0014_t070.0.jpg,70,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,in_flight,attached,attached,yes,no,ascent_with_boosters,yes,no,"in cloud, booster sep not visible"
+f_0015_t075.0.jpg,75,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,in_flight,attached,attached,yes,no,ascent_with_boosters,yes,no,"in cloud, booster sep not visible"
 f_0016_t080.0.jpg,80,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,in_flight,attached,attached,yes,no,ascent_with_boosters,no,no,"in cloud, booster sep not visible"
 f_0017_t085.0.jpg,85,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,in_flight,attached,attached,yes,no,ascent_with_boosters,no,no,"in cloud, booster sep not visible"
 f_0018_t090.0.jpg,90,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,in_flight,attached,attached,yes,no,ascent_with_boosters,no,no,"in cloud, booster sep not visible"
 f_0019_t095.0.jpg,95,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,in_flight,attached,attached,yes,no,ascent_with_boosters,no,no,"in cloud, booster sep not visible"
 f_0020_t100.0.jpg,100,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,cant_tell,no,yes,empty sky/clouds
 f_0021_t105.0.jpg,105,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,cant_tell,no,yes,empty sky/clouds
-f_0022_t110.0.jpg,110,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,ascent_with_boosters,no,yes,"cloud shot, rocket not visible"
-f_0023_t115.0.jpg,115,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,ascent_with_boosters,no,yes,"cloud shot, rocket not visible"
-f_0024_t120.0.jpg,120,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,ascent_with_boosters,no,yes,"cloud shot, rocket not visible"
+f_0022_t110.0.jpg,110,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,cant_tell,no,yes,"cloud shot, rocket not visible"
+f_0023_t115.0.jpg,115,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,cant_tell,no,yes,"cloud shot, rocket not visible"
+f_0024_t120.0.jpg,120,live_camera_rocket,no,no,no,no,no,no_text,not_visible,none,none,none,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,cant_tell,no,yes,"cloud shot, rocket not visible"
 f_0025_t125.0.jpg,125,animation_rocket,yes,yes,yes,no,no,french,not_visible,11,"0,47",4,in_flight,attached,attached,yes,no,ascent_with_boosters,no,yes,no clock visible; digits slightly glitchy
-f_0026_t130.0.jpg,130,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,14,"0,55",6,in_flight,attached,attached,yes,no,ascent_with_boosters,no,yes,
+f_0026_t130.0.jpg,130,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,14,"0,55",6,in_flight,attached,attached,yes,no,ascent_with_boosters,no,no,
 f_0027_t135.0.jpg,135,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,16,"0,63",8,in_flight,attached,attached,yes,no,ascent_with_boosters,no,yes,
 f_0028_t140.0.jpg,140,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,18,"0,70",9,in_flight,attached,attached,yes,no,ascent_with_boosters,no,yes,
 f_0029_t145.0.jpg,145,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,21,"0,81",13,in_flight,attached,attached,yes,no,ascent_with_boosters,no,yes,
@@ -47,21 +47,21 @@ f_0044_t220.0.jpg,220,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,87,"2,1
 f_0045_t225.0.jpg,225,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,91,"2,12",127,in_flight,separated,attached,yes,no,ascent_after_booster_sep,no,yes,
 f_0046_t230.0.jpg,230,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,96,"2,15",138,in_flight,separated,attached,yes,no,ascent_after_booster_sep,no,yes,
 f_0047_t235.0.jpg,235,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,100,"2,17",148,in_flight,separated,attached,yes,no,ascent_after_booster_sep,no,yes,
-f_0048_t240.0.jpg,240,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,103,"2,19",158,in_flight,separated,attached,cant_tell,no,ascent_after_booster_sep,no,yes,plume faint/not shown
-f_0049_t245.0.jpg,245,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,108,"2,22",168,in_flight,separated,attached,cant_tell,no,ascent_after_booster_sep,no,yes,plume faint/not shown
-f_0050_t250.0.jpg,250,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,112,"2,24",178,in_flight,separated,attached,cant_tell,no,ascent_after_booster_sep,no,yes,plume faint/not shown
-f_0051_t255.0.jpg,255,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,115,"2,27",189,in_flight,separated,attached,cant_tell,no,ascent_after_booster_sep,no,yes,plume faint/not shown
-f_0052_t260.0.jpg,260,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,120,"2,29",199,in_flight,separated,attached,cant_tell,no,ascent_after_booster_sep,no,yes,plume faint/not shown
-f_0053_t265.0.jpg,265,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,123,"2,32",210,in_flight,separated,attached,cant_tell,no,ascent_after_booster_sep,no,yes,plume faint/not shown
-f_0054_t270.0.jpg,270,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,127,"2,35",221,in_flight,separated,jettisoned,cant_tell,no,ascent_after_fairing_jettison,yes,no,plume faint/not shown
+f_0048_t240.0.jpg,240,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,103,"2,19",158,in_flight,separated,attached,yes,no,ascent_after_booster_sep,no,yes,plume faint/not shown
+f_0049_t245.0.jpg,245,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,108,"2,22",168,in_flight,separated,attached,yes,no,ascent_after_booster_sep,no,yes,plume faint/not shown
+f_0050_t250.0.jpg,250,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,112,"2,24",178,in_flight,separated,attached,yes,no,ascent_after_booster_sep,no,yes,plume faint/not shown
+f_0051_t255.0.jpg,255,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,115,"2,27",189,in_flight,separated,attached,yes,no,ascent_after_booster_sep,no,yes,plume faint/not shown
+f_0052_t260.0.jpg,260,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,120,"2,29",199,in_flight,separated,attached,yes,no,ascent_after_booster_sep,no,yes,plume faint/not shown
+f_0053_t265.0.jpg,265,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,123,"2,32",210,in_flight,separated,attached,yes,no,ascent_after_booster_sep,no,yes,plume faint/not shown
+f_0054_t270.0.jpg,270,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,127,"2,35",221,in_flight,separated,jettisoned,yes,no,ascent_after_fairing_jettison,yes,no,plume faint/not shown
 f_0055_t275.0.jpg,275,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,131,"2,37",232,in_flight,separated,jettisoned,cant_tell,no,ascent_after_fairing_jettison,yes,no,plume faint/not shown
 f_0056_t280.0.jpg,280,animation_rocket,yes,yes,yes,yes,yes,french,t_plus,134,"2,41",243,in_flight,separated,jettisoned,cant_tell,no,ascent_after_fairing_jettison,no,yes,plume faint/not shown
 f_0057_t285.0.jpg,285,other,yes,yes,yes,yes,yes,french,t_plus,138,"2,44",254,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,ascent_after_fairing_jettison,no,yes,"CGI globe, rocket not shown"
 f_0058_t290.0.jpg,290,other,yes,yes,yes,yes,yes,french,t_plus,141,"2,46",264,not_visible,cant_tell,cant_tell,cant_tell,cant_tell,ascent_after_fairing_jettison,no,yes,"CGI globe, rocket not shown"
-f_0059_t295.0.jpg,295,other,no,no,no,no,no,no_text,t_plus,none,none,none,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,upper_stage_coast_or_burn,no,yes,
-f_0060_t300.0.jpg,300,other,yes,yes,yes,no,no,french,not_visible,148,"2,54",289,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,upper_stage_coast_or_burn,no,yes,onboard camera
-f_0061_t305.0.jpg,305,other,yes,yes,yes,no,no,french,not_visible,151,?,?,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,upper_stage_coast_or_burn,no,yes,onboard telescope camera; rocket seen only in inset; digits glitched
-f_0062_t310.0.jpg,310,other,yes,yes,yes,no,no,french,not_visible,155,"2,61",314,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,upper_stage_coast_or_burn,no,yes,onboard telescope camera; rocket seen only in inset
-f_0063_t315.0.jpg,315,other,yes,yes,yes,no,no,french,not_visible,?,"2,64",326,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,upper_stage_coast_or_burn,no,yes,onboard telescope camera; rocket seen only in inset; digits glitched
-f_0064_t320.0.jpg,320,other,yes,yes,yes,no,no,french,not_visible,160,"2,68",336,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,upper_stage_coast_or_burn,no,yes,onboard telescope camera; rocket seen only in inset
-f_0065_t325.0.jpg,325,other,yes,yes,yes,no,no,french,not_visible,164,"2,72",352,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,upper_stage_coast_or_burn,no,yes,onboard telescope camera; rocket seen only in inset
+f_0059_t295.0.jpg,295,other,no,no,no,no,no,no_text,t_plus,none,none,none,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,cant_tell,no,yes,
+f_0060_t300.0.jpg,300,other,yes,yes,yes,no,no,french,not_visible,148,"2,54",289,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,cant_tell,no,yes,onboard camera
+f_0061_t305.0.jpg,305,other,yes,yes,yes,no,no,french,not_visible,151,?,?,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,cant_tell,no,yes,onboard telescope camera; rocket seen only in inset; digits glitched
+f_0062_t310.0.jpg,310,other,yes,yes,yes,no,no,french,not_visible,155,"2,61",314,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,cant_tell,no,yes,onboard telescope camera; rocket seen only in inset
+f_0063_t315.0.jpg,315,other,yes,yes,yes,no,no,french,not_visible,?,"2,64",326,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,cant_tell,no,yes,onboard telescope camera; rocket seen only in inset; digits glitched
+f_0064_t320.0.jpg,320,other,yes,yes,yes,no,no,french,not_visible,160,"2,68",336,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,cant_tell,no,yes,onboard telescope camera; rocket seen only in inset
+f_0065_t325.0.jpg,325,other,yes,yes,yes,no,no,french,not_visible,164,"2,72",352,not_visible,cant_tell,jettisoned,cant_tell,cant_tell,cant_tell,no,yes,onboard telescope camera; rocket seen only in inset
