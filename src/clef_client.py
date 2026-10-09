@@ -15,6 +15,12 @@ import yaml
 from dotenv import load_dotenv
 from PIL import Image
 
+try:  # trust the OS certificate store (needed behind corporate TLS-inspecting proxies)
+    import truststore
+    truststore.inject_into_ssl()
+except ImportError:
+    pass
+
 ROOT = Path(__file__).resolve().parent.parent
 ENDPOINT = "https://openrouter.ai/api/alpha/decisions"
 
