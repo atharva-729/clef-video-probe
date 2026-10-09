@@ -30,7 +30,7 @@ HINTS = {
     "side_boosters_attached": "`attached` from the pad until separation. `cant_tell` if the rocket is not shown clearly.",
     "fairing_attached": "`attached` until the fairing halves are gone. `cant_tell` if the rocket is not shown clearly.",
     "payload_separated": "`yes` only once the telescope has left the upper stage. Seeing the telescope earlier does not count.",
-    "flight_phase": "Pick the phase the broadcast is in, using the mission clock or the state of boosters and fairing.",
+    "flight_phase": "Judge from this frame alone, as Clef does: the visible rocket, boosters or fairing, or a readable mission clock. Do not infer the phase from the neighbouring frames or from timing. If nothing in the frame shows it (empty cloud, globe view), use `cant_tell`.",
     "highlight_worthy": "`yes` for liftoff, separations and similar key moments; `no` for routine shots.",
     "ad_break_safe": "`yes` if cutting away here would miss nothing important.",
 }
