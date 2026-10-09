@@ -25,31 +25,31 @@ The largest area of the screen. A live shot of the pad or rocket is `live_camera
 
 Is a panel showing numeric flight data (e.g. altitude, speed, distance) visible?
 
-Values: `True`, `False`
+Values: `yes`, `no`
 
 ### `trajectory_chart_visible`
 
 Is a chart plotting the rocket's trajectory (altitude vs distance) visible?
 
-Values: `True`, `False`
+Values: `yes`, `no`
 
 ### `ground_track_map_visible`
 
 Is a world map showing the rocket's ground track or tracking stations visible?
 
-Values: `True`, `False`
+Values: `yes`, `no`
 
 ### `control_room_inset_visible`
 
 Is a smaller inset showing people in a control room visible?
 
-Values: `True`, `False`
+Values: `yes`, `no`
 
 ### `people_visible`
 
 Are any real people visible anywhere on screen?
 
-Values: `True`, `False`
+Values: `yes`, `no`
 
 ### `onscreen_text_language`
 
@@ -117,13 +117,13 @@ Values: `attached`, `jettisoned`, `cant_tell`
 
 Is an engine plume or flame visible?
 
-Values: `True`, `False`, `cant_tell`
+Values: `yes`, `no`, `cant_tell`
 
 ### `payload_separated`
 
 Has the telescope separated from the rocket and is it flying free?
 
-Values: `True`, `False`, `cant_tell`
+Values: `yes`, `no`, `cant_tell`
 
 `yes` only once the telescope has left the upper stage. Seeing the telescope earlier does not count.
 
@@ -139,7 +139,7 @@ Pick the phase the broadcast is in, using the mission clock or the state of boos
 
 Is this frame part of a key moment worth clipping as a highlight (liftoff, a separation, a reaction shot)?
 
-Values: `True`, `False`
+Values: `yes`, `no`
 
 `yes` for liftoff, separations and similar key moments; `no` for routine shots.
 
@@ -147,7 +147,7 @@ Values: `True`, `False`
 
 Would cutting away to an ad here miss nothing important (e.g. talking heads, routine cruise)?
 
-Values: `True`, `False`
+Values: `yes`, `no`
 
 `yes` if cutting away here would miss nothing important.
 

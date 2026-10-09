@@ -1,1 +1,6 @@
 event,timestamp_s
+ignition,61
+liftoff,65
+booster_separation,203
+fairing_jettison,268
+crossed_100km,235
