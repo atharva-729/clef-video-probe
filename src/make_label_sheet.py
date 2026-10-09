@@ -8,12 +8,15 @@ and docs/frames_thumbnails.jpg. Existing labels.csv / events_truth.csv are never
 import csv
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 import yaml
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from clef_client import load_schema  # noqa: E402
 NUMERIC = {"altitude_km": "altitude_raw", "speed_kms": "speed_raw", "distance_km": "distance_raw"}
 
 # How to read each question when labelling. Anything not listed uses the schema wording alone.
@@ -147,7 +150,7 @@ def thumbnail_grid(frames_dir, frames, out, cols=11, tile_width=160):
 
 def main():
     cfg = yaml.safe_load((ROOT / "config.yaml").read_text(encoding="utf-8"))
-    schema = yaml.safe_load((ROOT / cfg["schema_path"]).read_text(encoding="utf-8"))
+    schema = load_schema()
     interval = cfg["sample_interval_s"]
     video = ROOT / cfg["clip"]["path"]
     frames_dir = ROOT / "data" / "frames"
