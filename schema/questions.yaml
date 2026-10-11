@@ -1,4 +1,4 @@
-version: 2
+version: 4
 state: >
   This image is a single frame from a live TV broadcast of a rocket launch
   (Ariane 5 carrying the James Webb Space Telescope). On-screen text may be in
@@ -60,27 +60,40 @@ questions:
 
   # ── C. Vehicle state ─────────────────────────────────────────────────────
   - id: vehicle_location
-    question: Where is the rocket in this frame?
+    question: >-
+      Looking only at the main (largest) area of the screen, not the small insets along the bottom, where is the rocket?
+      Answer not_visible if the main area does not show the rocket.
     options: [on_pad, in_flight, not_visible]
 
   - id: side_boosters_attached
-    question: Are the rocket's two side boosters still attached?
+    question: >-
+      Looking only at the main (largest) area of the screen, not the small insets along the bottom, are the rocket's
+      two side boosters still attached? Answer cant_tell if the main area does not clearly show the rocket.
     options: [attached, separated, cant_tell]
 
   - id: fairing_attached
-    question: Is the nose fairing still covering the payload?
+    question: >-
+      Looking only at the main (largest) area of the screen, not the small insets along the bottom, is the nose
+      fairing still covering the payload? Answer cant_tell if the main area does not clearly show the rocket.
     options: [attached, jettisoned, cant_tell]
 
   - id: engine_firing
-    question: Is an engine plume or flame visible?
+    question: >-
+      Looking only at the main (largest) area of the screen, not the small insets along the bottom, is an engine
+      plume or flame visible? Answer cant_tell if the main area does not show the rocket.
     options: [yes, no, cant_tell]
 
   - id: payload_separated
-    question: Has the telescope separated from the rocket and is it flying free?
+    question: >-
+      Looking only at the main (largest) area of the screen, not the small insets along the bottom, has the
+      telescope separated from the rocket and is it flying free? Answer cant_tell only if the main area does not
+      show the rocket at all.
     options: [yes, no, cant_tell]
 
   - id: flight_phase
-    question: Which phase of the flight does this frame show?
+    question: >-
+      Judging only from the main (largest) area of the screen and the mission clock, not the small insets
+      along the bottom, which phase of the flight does this frame show? Answer cant_tell if neither shows it.
     options: [pre_launch, liftoff, ascent_with_boosters, ascent_after_booster_sep, ascent_after_fairing_jettison, upper_stage_coast_or_burn, payload_separation, post_separation, cant_tell]
 
   # ── D. Editorial: what a publisher would act on ──────────────────────────

@@ -3,6 +3,11 @@
   python src/run_clef.py --dry-run     # count frames, project cost, change nothing
   python src/run_clef.py               # real run (refuses if projected cost > BUDGET_USD)
 
+Phase 7 variants (same cache and budget rules):
+  --flash                 use the smaller model in config.yaml `model_flash`
+  --frames-dir DIR        read frames from DIR instead of data/frames
+  --context               add the previous frame's trusted answers to the state text
+
 Cache key = SHA-256(frame bytes + schema version + state text + model id). A cache hit never
 calls the API. Output goes to runs/<run_id>/ (raw/, answers.jsonl, run_meta.json).
 """
@@ -25,13 +30,14 @@ ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / "runs" / "cache"
 FALLBACK_TOKENS = 3000  # Phase 0 measured 2,995 input tokens per frame (docs/api_notes.md)
 MAX_TRIES = 3
+NO_INFO = {"cant_tell", "not_visible", "none"}
 
 
-def cache_key(frame, schema, model):
+def cache_key(frame, schema, model, state):
     h = hashlib.sha256()
     h.update(Path(frame).read_bytes())
     h.update(str(schema["version"]).encode())
-    h.update(schema["state"].encode())
+    h.update(state.encode())
     h.update(model.encode())
     return h.hexdigest()
 
@@ -46,10 +52,22 @@ def tokens_per_call():
     return FALLBACK_TOKENS
 
 
-def ask_with_retry(frame, schema):
+def context_state(state, prev, min_conf):
+    """State text plus the previous frame's trusted, informative answers (Phase 7 context ablation)."""
+    if prev is None:
+        return state
+    kept = [f"{qid}={a['answer']}" for qid, a in prev["answers"].items()
+            if a["confidence"] >= min_conf and a["answer"] not in NO_INFO]
+    if not kept:
+        return state
+    return (f"{state}\n\nFor reference, the answers given for the previous sampled frame were: {', '.join(kept)}. "
+            "The picture may have changed since then; answer from this frame.")
+
+
+def ask_with_retry(frame, state, schema, model_cfg):
     for attempt in range(1, MAX_TRIES + 1):
         try:
-            return ask(frame, schema["state"], schema["questions"])
+            return ask(frame, state, schema["questions"], model=model_cfg["id"], provider=model_cfg.get("provider"))
         except httpx.HTTPStatusError as e:
             code = e.response.status_code
             if code not in (429, 500, 502, 503, 504) or attempt == MAX_TRIES:
@@ -79,25 +97,32 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--run-id", default=datetime.now().strftime("run_%Y%m%d_%H%M%S"))
+    ap.add_argument("--flash", action="store_true")
+    ap.add_argument("--frames-dir", default=str(ROOT / "data" / "frames"))
+    ap.add_argument("--context", action="store_true")
     args = ap.parse_args()
 
     load_dotenv(ROOT / ".env")
     budget = float(os.environ.get("BUDGET_USD", "2.00"))
     cfg = load_config()
     schema = load_schema()
-    model = cfg["model"]["id"]
-    price = cfg["model"]["price_per_m_input_usd"]
+    model_cfg = cfg["model_flash"] if args.flash else cfg["model"]
+    model = model_cfg["id"]
+    price = model_cfg["price_per_m_input_usd"]
+    min_conf = cfg["events"]["min_conf"]
 
-    frames = sorted((ROOT / "data" / "frames").glob("f_*.jpg"))
+    frames = sorted(Path(args.frames_dir).glob("f_*.jpg"))
     if not frames:
-        raise SystemExit("no frames in data/frames/ (run src/make_label_sheet.py)")
-    keys = {f: cache_key(f, schema, model) for f in frames}
-    todo = [f for f in frames if not (CACHE / f"{keys[f]}.json").exists()]
+        raise SystemExit(f"no frames in {args.frames_dir} (run src/make_label_sheet.py)")
+    if args.context:  # the state depends on the previous answer, so cache hits are not known in advance
+        todo = frames
+    else:
+        todo = [f for f in frames if not (CACHE / f"{cache_key(f, schema, model, schema['state'])}.json").exists()]
     tokens = tokens_per_call()
     projected = len(todo) * tokens * price / 1e6
 
     print(f"model {model}, schema v{schema['version']}, {len(schema['questions'])} questions")
-    print(f"frames {len(frames)}, cached {len(frames) - len(todo)}, to call {len(todo)}")
+    print(f"frames {len(frames)}, cached {len(frames) - len(todo)}, to call {'up to ' if args.context else ''}{len(todo)}")
     print(f"~{tokens} input tokens per call -> projected cost ${projected:.4f} (budget ${budget:.2f})")
     if projected > budget:
         raise SystemExit("REFUSING: projected cost exceeds BUDGET_USD")
@@ -112,7 +137,8 @@ def main():
     started = time.time()
     spent, latencies, hits, failures, rows = 0.0, [], 0, [], []
     for i, frame in enumerate(frames):
-        cache_file = CACHE / f"{keys[frame]}.json"
+        state = context_state(schema["state"], rows[-1] if rows else None, min_conf) if args.context else schema["state"]
+        cache_file = CACHE / f"{cache_key(frame, schema, model, state)}.json"
         if cache_file.exists():
             response = json.loads(cache_file.read_text(encoding="utf-8"))
             hits += 1
@@ -121,7 +147,7 @@ def main():
                 failures.append((frame.name, "stopped: budget reached"))
                 continue
             try:
-                response = ask_with_retry(frame, schema)
+                response = ask_with_retry(frame, state, schema, model_cfg)
             except Exception as e:  # keep going; failures are reported at the end
                 failures.append((frame.name, str(e)[:300]))
                 print(f"[{i + 1}/{len(frames)}] {frame.name} FAILED: {str(e)[:120]}")
@@ -140,8 +166,9 @@ def main():
 
     (run_dir / "answers.jsonl").write_text("\n".join(json.dumps(r) for r in rows) + "\n", encoding="utf-8")
     meta = {
-        "run_id": args.run_id, "model": model, "provider": cfg["model"].get("provider"),
-        "schema_version": schema["version"], "frames": len(frames), "answered": len(rows),
+        "run_id": args.run_id, "model": model, "provider": model_cfg.get("provider"),
+        "schema_version": schema["version"], "frames_dir": Path(args.frames_dir).name, "context": args.context,
+        "frames": len(frames), "answered": len(rows),
         "cache_hits": hits, "new_calls": len(latencies), "failures": failures,
         "cost_usd_this_run": round(spent, 6), "elapsed_s": round(time.time() - started, 1),
         "latency_median_s": round(statistics.median(latencies), 3) if latencies else None,

@@ -11,6 +11,12 @@ model:
   provider: cloudflare   # pinned, no fallback (OpenRouter also lists a second provider)
   price_per_m_input_usd: 0.24
 
+# Phase 7 comparison (`run_clef.py --flash`). Price from OpenRouter's endpoint list on 2026-10-11.
+model_flash:
+  id: cloudflare/clef-flash
+  provider: cloudflare
+  price_per_m_input_usd: 0.038
+
 # Workers AI estimates tokens as base64 length / 4 before reading the image and
 # rejects with 413 past 65,536, so frames are re-encoded to JPEG under this size.
 image:
