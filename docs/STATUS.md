@@ -1,15 +1,21 @@
 # Status
 
-Last updated 2026-10-09. The README is the work plan; this file records where it stands.
+Last updated 2026-10-11. The README describes the project and what happened; this file records where things stand. The original work plan is the README at commit `02369c3`.
 
-**Phase 3 (Clef run) is pending: it failed on the work laptop because Netskope blocks openrouter.ai. Run `python src/run_clef.py --run-id run_001` on an unfiltered machine, then `python src/evaluate.py`.**
+**All phases are done except the "another domain" item of Phase 7, which needs a clip the maintainer owns. Phase 7 is in [reports/comparisons.md](../reports/comparisons.md) (`run_004_flash`, `run_005_context`, `run_006_dense`) and Phase 8 in [reports/summary.md](../reports/summary.md). `run_003` is the main run: pass `runs/run_003` to `evaluate.py`, `detect_events.py` and `build_replay.py`, because their default is the latest run, which is now a comparison run.**
 
-**Phases 0, 1 and 2 are done (labels reviewed by the maintainer). Phase 3 is next, then Phase 4: `src/evaluate.py` is written and tested on synthetic data only.**
+**GitHub Pages story page: `index.html` in the repo root, built by hand on 2026-10-11. It reads `replay/timeline.json`, `data/frames/` and `site/clip.mp4` (a 14 MB web copy of the clip, made because `data/clip/clip.mp4` is git-ignored). To publish, set Pages to serve the `main` branch from the root (Settings, Pages).**
+
+**Phase 5 (`src/detect_events.py` on `run_003`) hits 4 of 5 true events with 1 false positive, after the ignition rule was changed from the mission clock to `engine_firing`; see the Event detection section of the report. Phase 6 (`src/build_replay.py`) wrote `replay/`: run `python -m http.server 8000` in the repo root and open http://localhost:8000/replay/.**
+
+**Phases 0 to 4: Phase 3 ran on 2026-10-11 as `run_001`: 66 of 66 frames answered, no failures, $0.042, median latency 1.5 s (p95 2.3 s). Phase 4 wrote [reports/accuracy.md](../reports/accuracy.md) the same day. The schema then went to version 3 (the six vehicle questions now say to judge the main area only, not the insets) and was re-run as `run_002` ($0.046). Version 3 fixed the inset problem but made `payload_separated` worse (83% to 50%), so version 4 narrowed that question's `cant_tell` instruction and was re-run as `run_003` ($0.046). The report now describes `run_003`: vehicle group 72%, up from 67% on version 2. Phase 5 (event detection) is next; `src/detect_events.py` is not written yet.**
+
+**`runs/` is git-ignored, so `run_001` and its cache exist only on the machine that ran it. Another machine has to re-run Phase 3 (about $0.04) or copy `runs/` across.**
 
 ## Setting up a new machine
 
 1. Clone the repo.
-2. `data/clip/clip.mp4` and `data/frames/` are committed, so the clone has them. Check the clip against the SHA-256 in [SOURCE.md](SOURCE.md). The raw 10-minute cut in `data/raw/` is not needed.
+2. `data/frames/` is committed. `data/clip/clip.mp4` is git-ignored: copy it across, or take it from commit `02369c3`, and check it against the SHA-256 in [SOURCE.md](SOURCE.md). The raw 10-minute cut in `data/raw/` is not needed.
 3. Create `.env` from `.env.example` and fill in `OPENROUTER_API_KEY`.
 4. Install Python 3.11 and `pip install -r requirements.txt`, and put `ffmpeg` on PATH.
 

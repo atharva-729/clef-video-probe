@@ -1,4 +1,6 @@
 data/raw/
+data/clip/clip.mp4
+data/frames_dense/
 runs/
 .env
 __pycache__/
