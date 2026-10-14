@@ -203,6 +203,15 @@ Varying the confidence threshold (0.5 to 0.7) and persistence (1 to 3 frames) ch
 
 [index.html](index.html) is the public write-up, published with GitHub Pages. It embeds the clip with a narrated walk-through, shows every answer as a 19 × 66 grid, and tells the rest of this README as a story.
 
+The clip on the story page carries an overlay drawn from `replay/timeline.json`. It shows:
+- **The main picture:** always on screen.
+- **The panels Clef says are visible:** each one outlined.
+- **The clock:** boxed while it is on screen.
+- **The flight figures:** a tick per figure, with a red box on a misread.
+- **A vehicle card:** sits outside the picture, under the clip on the page and in a column to its right in fullscreen. Each answer is faded while it is right and unchanged, bright for 10 s after it changes, and red when wrong.
+
+The editorial answers and the notes sit in a strip under the clip. Positions are written in the clip's own 1080×606 pixels, so the overlay scales with the player. The page has its own controls, so fullscreen (button, double-click or F) takes the clip, the overlay and the strip together.
+
 ### 8. Three follow-up comparisons
 
 Details are in [reports/comparisons.md](reports/comparisons.md).

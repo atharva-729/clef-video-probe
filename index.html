@@ -65,6 +65,59 @@ p{margin:0 0 .9em}
 .player{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-top:18px;align-items:start}
 video{width:100%;aspect-ratio:1080/606;background:#000;border-radius:2px}
 #vmsg{font:12px var(--mono);color:var(--mut)}
+
+/* stage: the clip, its overlay and the strip below. The whole stage is what goes fullscreen. */
+#stage{background:var(--ink);border:1px solid var(--rule);border-radius:2px}
+#vbox{position:relative;container-type:inline-size;cursor:pointer;background:#000}
+#vbox video{border-radius:0}
+#below .ctl{display:flex;align-items:center;gap:8px;padding:8px 10px;border-top:1px solid var(--rule)}
+.ctl button{font:600 11.5px var(--mono);background:var(--ink3);color:var(--fg);border:1px solid var(--rule);border-radius:2px;padding:5px 9px;cursor:pointer;white-space:nowrap}
+.ctl button:hover{border-color:var(--mut)} .ctl button[aria-pressed=true]{background:var(--fg);color:var(--ink)}
+.ctl input{flex:1;min-width:50px;accent-color:var(--flame);cursor:pointer}
+.ctl .tm{font:12px var(--mono);color:var(--soft);white-space:nowrap}
+.info{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.7fr);gap:10px;padding:0 10px 10px}
+.info #beat{margin:0;background:var(--ink2)}
+.eh{font:600 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:5px}
+.edq{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:5px 8px;margin-bottom:3px;border-left:3px solid var(--c);background:var(--ink2);font-size:12.5px}
+.edq b{color:var(--c)} .edq i{font:normal 11px var(--mono);color:var(--mut)}
+.vnote{font:11px/1.45 var(--mono);color:var(--mut);margin-top:7px} .vnote span{display:block;margin-top:4px} .vnote span[hidden]{display:none} .vnote .star{color:var(--warn)}
+#stage.bare .info{display:none}
+#stage:fullscreen{display:flex;flex-direction:column;width:100vw;height:100vh;border:0;border-radius:0;background:#000}
+#stage:fullscreen .vfit{flex:1 1 0;min-height:0;container-type:size;display:flex;align-items:flex-start}
+#stage:fullscreen #vbox{flex:none;width:min(calc(100cqw - 330px),calc(100cqh * 1080 / 606))}
+#stage:fullscreen #veh{flex:1;min-width:0;align-self:stretch;display:block;border-top:0;padding:18px;font-size:14px;background:#000}
+#stage:fullscreen #veh .vr{grid-template-columns:8.6em minmax(0,1fr) 3em 1em;padding:7px 0;border-bottom:1px solid var(--ink3)}
+#stage:fullscreen #below{background:var(--ink)}
+#stage:fullscreen .info{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+#stage:fullscreen .side{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+#stage:fullscreen #beat{min-height:0;padding:8px 12px} #stage:fullscreen #beat p{font-size:.88rem}
+#stage:fullscreen .vnote{margin-top:0}
+
+/* overlay: positioned in the clip's own 1080×606 pixels (as percentages) and sized in em, so it scales with the video */
+#ov{position:absolute;inset:0;pointer-events:none;font:500 clamp(9px,1.2cqw,21px)/1.3 var(--mono);color:#fff;transition:opacity .3s}
+#vbox.off #ov{opacity:0}
+#ov>*,#ov .lb,#ov .vr{transition:opacity .6s}
+#ov .gone{opacity:0}
+#ov b{font-weight:600} #ov i{font-style:normal;opacity:.7} #ov i.low{color:var(--warn);opacity:1}
+#ov u{text-decoration:none;color:var(--c)} #ov small{font-size:.86em;color:#ffb1a9;margin-left:.4em}
+#ov .stack{position:absolute;left:1.2%;top:2.2%;display:flex;flex-direction:column;align-items:flex-start;gap:.35em}
+#ov .lb{position:absolute;background:rgba(8,11,16,.84);border-left:.28em solid var(--c);padding:.28em .6em;white-space:nowrap}
+#ov .stack .lb{position:static}
+#ov .ob{position:absolute;border:max(1.5px,.15em) solid var(--c);border-radius:2px}
+#ov .ob.dash{border-style:dashed}
+#ov .ob>b{position:absolute;left:-.15em;bottom:100%;margin-bottom:.25em;background:var(--c);color:#0b0e14;font-size:.82em;padding:.1em .45em;white-space:nowrap}
+#ov .ob>b.under{top:100%;bottom:auto;left:auto;right:-.15em;margin:.25em 0 0}
+#ov .ob.row{--c:var(--bad);box-shadow:0 0 0 .25em rgba(255,90,77,.35)}
+#ov .tick{position:absolute;transform:translate(-50%,-50%);width:1.45em;height:1.45em;border-radius:50%;background:var(--c);color:#0b0e14;display:grid;place-items:center;font-weight:700;font-size:.9em}
+#ov #o-nums{z-index:2}
+/* vehicle card: Clef's answers about the rocket, kept beside the picture rather than on it */
+#veh{display:grid;grid-template-columns:1fr 1fr;gap:0 22px;padding:8px 12px 10px;border-top:1px solid var(--rule);background:var(--ink);font:500 12px/1.35 var(--mono)}
+#veh .vh{grid-column:1/-1;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
+#veh .vr{display:grid;grid-template-columns:9.2em minmax(0,1fr) 3em 1em;gap:.5em;align-items:baseline;padding:2px 0;transition:opacity .6s}
+#veh .vr span{color:var(--soft)} #veh b{font-weight:600;color:var(--fg)} #veh .vr.bad b{color:var(--bad)}
+#veh i{font-style:normal;color:var(--mut);text-align:right} #veh i.low{color:var(--warn)}
+#veh em{font-style:normal;font-weight:700;color:var(--c)} #veh small{display:block;font-size:.9em;color:#ffb1a9}
+#veh .vr.dim{opacity:.35}
 #strip{position:relative;height:54px;margin-top:10px;background:var(--ink);border:1px solid var(--rule);cursor:pointer;border-radius:2px;overflow:hidden}
 #strip .scene{position:absolute;bottom:0;height:6px}
 #strip .mk{position:absolute;width:11px;height:11px;margin-left:-5.5px;border-radius:50%}
@@ -206,6 +259,7 @@ footer a{color:var(--fg)}
   .aimgrid,.player,.proof,.calwrap,.inset,footer .cols{grid-template-columns:1fr;gap:18px}
   .player>div:first-child{position:sticky;top:0;z-index:5;background:var(--ink2);padding-bottom:8px}
   #beat,#strip,.player .legend{display:none}
+  .info{grid-template-columns:1fr}
   .evcards{grid-template-columns:repeat(2,1fr)}
   .tiles,.steps,.qgroups{grid-template-columns:1fr 1fr}
   .cards{grid-template-columns:1fr}
@@ -217,6 +271,7 @@ footer a{color:var(--fg)}
   .aims li{grid-template-columns:1fr;gap:0}
   .answer,.tiles,.steps,.qgroups,.evcards{grid-template-columns:1fr}
   .qcols{grid-template-columns:1fr}
+  #veh{grid-template-columns:1fr}
   .nextstep{grid-template-columns:1fr;gap:8px}
 }
 </style>
@@ -253,20 +308,43 @@ footer a{color:var(--fg)}
 <section id="watch" class="alt">
  <div class="wrap">
   <div class="kicker"><b>01</b> The clip and Clef's answers</div>
-  <h2>Press play. All 19 answers update beside the clip.</h2>
+  <h2>Press play. Clef's answers are drawn on the clip, and all 19 are listed beside it.</h2>
   <div class="keyline">
    <span><i class="sw" style="background:var(--ok)"></i>matches the human label</span>
-   <span><i class="sw" style="background:var(--bad)"></i>wrong, with the correct answer underneath</span>
+   <span><i class="sw" style="background:var(--bad)"></i>wrong, with the correct answer next to it</span>
    <span><i class="sw" style="background:var(--rule)"></i>not scored</span>
    <span><b class="c-warn">%</b> in amber: Clef was under 60% sure</span>
+   <span>faded: right, and unchanged for 10 s</span>
   </div>
   <div class="player">
    <div>
-    <video id="vid" controls playsinline preload="metadata" poster="site/poster.jpg"></video>
+    <div id="stage">
+     <div class="vfit"><div id="vbox"><video id="vid" playsinline preload="metadata" poster="site/poster.jpg"></video><div id="ov"></div></div><div id="veh"></div></div>
+     <div id="below">
+      <div class="ctl">
+       <button id="bplay">▶ Play</button>
+       <span class="tm" id="btime">00:00 / 05:30</span>
+       <input type="range" id="bseek" min="0" max="330" step="0.1" value="0" aria-label="Seek">
+       <button id="bmute">Mute</button>
+       <button id="bov" aria-pressed="true" title="Key: O">Overlay</button>
+       <button id="bfs" title="Key: F">⛶ Fullscreen</button>
+      </div>
+      <div class="info">
+       <div id="beat"><div class="when"></div><h3></h3><p></p></div>
+       <div class="side">
+        <div><div class="eh">Editorial · Clef's call, kept off the picture</div><div id="ed"></div></div>
+        <div class="vnote">
+         <span class="star" id="star" hidden>* Main picture: from 4:55 the screen shows the telescope from an onboard-style camera. We labelled it "other"; Clef calls it a live camera shot of the rocket. Both readings are defensible, so it is amber, not red.</span>
+         <span>Replay. Clef sees one frame every 5 s and answers in about 1.5 s; each answer holds until the next frame.</span>
+         <span>Keys: F fullscreen · O overlay · I this strip · space play</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
     <div id="vmsg"></div>
     <div id="strip"><span class="lane" style="top:6px">true</span><span class="lane" style="top:25px">detected</span><div id="head"></div></div>
     <div class="legend" id="evlegend"></div>
-    <div id="beat"><div class="when"></div><h3></h3><p></p></div>
    </div>
    <div id="panel">
     <div class="ph"><span>Clef's answers · <span id="pframe"></span></span><b id="pscore"></b></div>
@@ -608,13 +686,103 @@ function renderPanel(i) {
   s.className = wrong === 0 ? 'c-ok' : wrong <= 2 ? 'c-warn' : 'c-bad';
 }
 
+// ── Overlay: Clef's answers drawn on the clip. Positions are in the clip's own 1080×606 pixels. ──
+const W = 1080, H = 606;
+const at = (x, y) => `left:${x / W * 100}%;top:${y / H * 100}%`;
+const box = (x, y, w, h) => `${at(x, y)};width:${w / W * 100}%;height:${h / H * 100}%`;
+// the bottom row of panels and the clock sit at the same pixels whenever they are on screen
+const LAYOUT = [['telemetry_panel_visible', '', 44, 447, 201, 141], ['trajectory_chart_visible', 'chart', 245, 447, 265, 141],
+  ['ground_track_map_visible', 'map', 510, 447, 270, 141], ['control_room_inset_visible', 'control room', 782, 447, 246, 141]];
+const NUMS = [['altitude_km', 'Altitude', 467], ['distance_km', 'Distance', 516], ['speed_kms', 'Speed', 565]];
+const VEH = [['vehicle_location', 'Rocket'], ['side_boosters_attached', 'Side boosters'], ['fairing_attached', 'Nose fairing'],
+  ['engine_firing', 'Engine flame'], ['payload_separated', 'Telescope free'], ['flight_phase', 'Phase']];
+const EDIT = [['highlight_worthy', 'Highlight moment?'], ['ad_break_safe', 'Safe to cut to an ad?']];
+
+// One answer on frame i: scored right (true), wrong (false) or not scored (null); fresh if it changed on this frame or the one before (10 s).
+function ans(q, i) {
+  const F = T.frames, a = F[i].answers[q], t = F[i].truth[q];
+  const changed = j => j <= 0 || F[j].answers[q].a !== F[j - 1].answers[q].a;
+  return {a: a.a, c: a.c, t, ok: t === undefined ? null : a.a === t, fresh: changed(i) || changed(i - 1)};
+}
+const col = r => r.ok === null ? 'var(--mut)' : r.ok ? 'var(--ok)' : 'var(--bad)';
+const mark = r => r.ok === null ? '' : r.ok ? '✓' : '✗';
+const conf = r => `<i class="${r.c < .6 ? 'low' : ''}">${pc(r.c)}</i>`;
+const fix = (r, unit) => r.ok === false ? `<small>should be ${nice(r.t, unit)}</small>` : '';
+// From 4:55 the main picture is labelled "other" and Clef says live camera: a grey area, shown amber with an asterisk.
+const grey = i => { const m = ans('main_view', i); return m.ok === false && m.t === 'other' && m.a === 'live_camera_rocket'; };
+
+function buildOverlay() {
+  $('ov').innerHTML = '<div class="stack"><div class="lb" id="o-main"></div><div class="lb" id="o-ppl"></div></div>' +
+    LAYOUT.map(([q, n, ...r]) => `<div class="ob" id="o-${q}" style="${box(...r)}">${n ? '<b></b>' : ''}</div>`).join('') +
+    `<div class="ob" id="o-clock" style="${box(851, 1, 228, 34)}"><b class="under"></b></div>` +
+    NUMS.map(([q, , y]) => `<div class="ob row" id="o-r-${q}" style="${box(44, y - 21, 201, 42)}"></div><div class="tick" id="o-k-${q}" style="${at(30, y)}"></div>`).join('') +
+    `<div class="lb" id="o-nums" style="left:${44 / W * 100}%;bottom:${(H - 447) / H * 100 + 1}%"></div>`;
+  $('veh').innerHTML = `<div class="vh">The rocket, as Clef sees it</div>${VEH.map(([q, n]) => `<div class="vr" id="o-v-${q}"><span>${n}</span><b></b><i></i><em></em></div>`).join('')}`;
+}
+
+function put(id, show, c, html) {
+  const el = $(id);
+  el.classList.toggle('gone', !show);
+  el.style.setProperty('--c', c);
+  if (html !== undefined) (el.querySelector('b') && !el.classList.contains('lb') ? el.querySelector('b') : el).innerHTML = html;
+  return el;
+}
+
+function renderOverlay(i) {
+  // main picture: always shown
+  const m = ans('main_view', i), g = grey(i);
+  put('o-main', true, g ? 'var(--warn)' : col(m), `Main picture <b>${nice(m.a)}</b> ${conf(m)} <u>${g ? '*' : mark(m)}</u>${g ? '' : fix(m)}`);
+  // people: shown when they appear, then fades; a wrong answer stays
+  const p = ans('people_visible', i);
+  put('o-ppl', (p.a === 'yes' && p.fresh) || p.ok === false, col(p), `People on screen <b>${p.a}</b> ${conf(p)} <u>${mark(p)}</u>${fix(p)}`);
+  // layout: outline each panel Clef says is there; a dashed red outline where it missed one
+  for (const [q, n] of LAYOUT) {
+    const r = ans(q, i), yes = r.a === 'yes';
+    put('o-' + q, yes || r.ok === false, col(r), n ? `${n} ${yes ? mark(r) : 'missed ✗'}` : undefined).classList.toggle('dash', !yes);
+  }
+  // clock: boxed while shown; "not visible" for 10 s after it goes, then nothing
+  const k = ans('clock_state', i), kvis = k.a !== 'not_visible';
+  put('o-clock', kvis || k.fresh || k.ok === false, col(k), `${kvis ? 'Clock ' + nice(k.a) : 'Clock not visible'} ${mark(k)} ${pc(k.c)}`).classList.toggle('dash', !kvis);
+  // numbers: one tag for the panel, a tick per figure, and a red box on any figure Clef got wrong
+  const rs = NUMS.map(([q]) => ans(q, i)), bad = NUMS.filter((n, j) => rs[j].ok === false);
+  NUMS.forEach(([q], j) => {
+    const r = rs[j];
+    put('o-k-' + q, r.a !== 'none' || r.ok === false, col(r), mark(r) || '·');
+    put('o-r-' + q, r.ok === false, 'var(--bad)');
+  });
+  const tag = bad.length
+    ? bad.map(([q, n]) => { const r = rs[NUMS.findIndex(x => x[0] === q)]; return `✗ ${n}: Clef says <b>${nice(r.a, UNIT[q])}</b>, it is <b>${nice(r.t, UNIT[q])}</b> ${conf(r)}`; }).join('<br>')
+    : `Clef reads all three <u>${rs.every(r => r.ok) ? '✓' : ''}</u>`;
+  put('o-nums', rs.some(r => r.a !== 'none') || bad.length, bad.length ? 'var(--bad)' : col({ok: rs.every(r => r.ok !== false) || null}), tag);
+  // vehicle card (beside the clip): faded while right and unchanged; bright for 10 s after a change; wrong answers stay bright and red
+  for (const [q] of VEH) {
+    const r = ans(q, i), el = $('o-v-' + q);
+    el.className = 'vr' + (r.ok === false ? ' bad' : r.fresh ? '' : ' dim');
+    el.style.setProperty('--c', col(r));
+    el.querySelector('b').innerHTML = nice(r.a) + fix(r);
+    el.querySelector('i').outerHTML = conf(r);
+    el.querySelector('em').textContent = mark(r);
+  }
+}
+
+// Under the clip: the editorial answers, and the asterisk note while the grey-area main picture is on screen.
+function renderBelow(i) {
+  $('ed').innerHTML = EDIT.map(([q, n]) => {
+    const r = ans(q, i);
+    return `<div class="edq" style="--c:${col(r)}"><span>${n}</span><span><b>${nice(r.a)} ${mark(r)}</b> <i>${pc(r.c)}${r.ok === false ? ' · is ' + nice(r.t) : ''}</i></span></div>`;
+  }).join('');
+  $('star').hidden = !grey(i);
+}
+
 function tick() {
   const t = v.currentTime || 0;
   $('head').style.left = Math.min(100, t / DUR * 100) + '%';
+  if (!seeking) $('bseek').value = t;
+  $('btime').textContent = `${clock(t)} / ${clock(DUR)}`;
   if (T) {
     let i = 0;
     while (i + 1 < T.frames.length && T.frames[i + 1].t <= t) i++;
-    if (i !== shown) { shown = i; renderPanel(i); }
+    if (i !== shown) { shown = i; renderPanel(i); renderOverlay(i); renderBelow(i); }
   }
   let b = BEATS.findIndex(x => t >= x[0] && t < x[1]);
   if (b < 0) b = BEATS.length - 1;
@@ -629,7 +797,42 @@ function tick() {
   }
 }
 
+// Own controls instead of the browser's, so fullscreen always takes the whole stage (clip, overlay and strip), never the bare video.
+const stage = $('stage');
+let seeking = false;
+const fsOn = () => document.fullscreenElement || document.webkitFullscreenElement;
+const play = () => v.paused ? v.play() : v.pause();
+function toggleFS() {
+  if (fsOn()) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  else (stage.requestFullscreen || stage.webkitRequestFullscreen).call(stage);
+}
+const toggleOverlay = () => $('bov').setAttribute('aria-pressed', !$('vbox').classList.toggle('off'));
+$('vbox').onclick = play;
+$('vbox').ondblclick = toggleFS;
+$('bplay').onclick = play;
+$('bfs').onclick = toggleFS;
+$('bov').onclick = toggleOverlay;
+$('bmute').onclick = () => { v.muted = !v.muted; $('bmute').textContent = v.muted ? 'Unmute' : 'Mute'; };
+$('bseek').oninput = e => { seeking = true; v.currentTime = +e.target.value; };
+$('bseek').onchange = () => { seeking = false; };
+v.addEventListener('play', () => $('bplay').textContent = '❚❚ Pause');
+v.addEventListener('pause', () => $('bplay').textContent = '▶ Play');
+['fullscreenchange', 'webkitfullscreenchange'].forEach(n => document.addEventListener(n, () => {
+  $('bfs').textContent = fsOn() ? '⛶ Exit fullscreen' : '⛶ Fullscreen';
+}));
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey || e.target.matches('input,textarea')) return;
+  const k = e.key.toLowerCase();
+  if (k === ' ' && e.target.matches('button')) return;
+  if (k === 'f') toggleFS();
+  else if (k === 'o') toggleOverlay();
+  else if (k === 'i') stage.classList.toggle('bare');
+  else if (k === 'k' || (k === ' ' && (fsOn() || stage.contains(e.target)))) { e.preventDefault(); play(); }
+  else if (fsOn() && (k === 'arrowleft' || k === 'arrowright')) v.currentTime += k === 'arrowleft' ? -5 : 5;
+});
+
 buildStatic();
+buildOverlay();
 ['timeupdate', 'seeking', 'seeked', 'loadedmetadata'].forEach(n => v.addEventListener(n, tick));
 (function loop() { if (!v.paused) tick(); requestAnimationFrame(loop); })();
 const want = new URLSearchParams(location.hash.slice(1)).get('t');
