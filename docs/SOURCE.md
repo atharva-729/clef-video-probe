@@ -28,4 +28,4 @@ SHA-256 of `data/clip/clip.mp4`: `4c25a279fba2ade8691dcb0c6b80d79529a4b561a3cea2
 
 Video: *Complete Webb Telescope Launch Broadcast*, NASA Goddard Space Flight Center Scientific Visualization Studio, https://svs.gsfc.nasa.gov/14060.
 
-The broadcast is a joint NASA/ESA production and includes partner graphics (for example the CNES telemetry panel). It is used here for internal R&D. Confirm the usage terms for partner material before any commercial use, and do not use NASA, ESA or CNES logos in a way that implies endorsement.
+The broadcast is a joint NASA/ESA production and includes partner graphics (for example the CNES telemetry panel). It is used here for non-commercial research. Confirm the usage terms for partner material before any commercial use, and do not use NASA, ESA or CNES logos in a way that implies endorsement.
